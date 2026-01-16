@@ -1,0 +1,103 @@
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(249, 229, 243);
+}
+
+.logincontainer {
+  width: 350px;
+  padding: 25px;
+  background-color: #ffffff; 
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(38, 37, 37, 0.15);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+}
+
+input {
+  width: 95%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+small,
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #88158c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #aaa;
+}
+
+
+/* :host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f6caca;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #fff5f5;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 18px;
+}
+
+button {
+  margin-top: 10px;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 24px;
+} */

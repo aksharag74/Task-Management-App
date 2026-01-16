@@ -1,0 +1,17 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(233, 228, 188);
+    color: black;
+    padding: 20px 20px;
+    height:20px;
+}
+
+nav a{
+  color: rgb(8, 44, 75);
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+

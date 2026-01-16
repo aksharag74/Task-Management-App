@@ -1,0 +1,176 @@
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background-color: rgb(249, 229, 243);
+}
+
+.project-name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #88158c;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.username {
+  font-size: 18px;
+  margin-left: 16px;
+  font-weight: 400;
+  color: #88158c;
+}
+
+.task-form {
+  margin: 24px auto;
+  padding: 24px;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.task-form h3 {
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}
+
+button[type="submit"] {
+  margin-right: 12px;
+}
+
+.task-table {
+  width: 100%;
+  margin: 24px auto;
+  max-width: 90%;
+}
+
+th {
+  font-weight: 600;
+}
+
+td, th {
+  padding: 12px;
+}
+
+
+.table-wrapper {
+  width: 90%;
+  margin: 24px auto;
+}
+
+table.mat-mdc-table {
+  width: 50%;          /* final width */
+  margin: 24px auto; 
+  border-radius: 12px;
+  overflow: hidden; 
+  background-color: rgb(250, 248, 250);
+  border: 0.1px Solid #88158c;
+   box-shadow: 0px 4px 12px rgba(228, 192, 230, 0.3);
+}
+.mat-column-description {
+  width: 50%;
+  max-width: 50%;
+}
+/* Header cells */
+.mat-mdc-header-cell {
+  color: #88158c;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 14px;
+  text-align: center;
+}
+
+/* Normal cells */
+.mat-mdc-cell {
+  padding: 14px;
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+}
+
+.no-tasks-cell {
+  text-align: start;
+  padding: 25px !important;
+  font-size: 16px;
+  font-weight: 500;
+  color: gray;
+}
+
+.mat-mdc-table{
+  min-width:97%;
+}
+
+.priority-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.priority-badge.Low {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.priority-badge.Medium {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.priority-badge.High {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.two-tables {
+  width: 95%;
+  margin: 25px auto;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; /* better */
+}
+
+.table-box {
+  flex: 1;
+}
+
+.small-table {
+  width: 100%;
+}
+
+.table-title {
+  text-align: center;   
+  color: #88158c;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-name {
+    font-size: 18px;
+  }
+
+  .task-form {
+    margin: 16px;
+    padding: 16px;
+  }
+}
