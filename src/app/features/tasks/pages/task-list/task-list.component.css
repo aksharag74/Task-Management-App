@@ -72,7 +72,7 @@ td, th {
 }
 
 table.mat-mdc-table {
-  width: 50%;          /* final width */
+  width: 50%;          
   margin: 24px auto; 
   border-radius: 12px;
   overflow: hidden; 
@@ -84,7 +84,7 @@ table.mat-mdc-table {
   width: 50%;
   max-width: 50%;
 }
-/* Header cells */
+
 .mat-mdc-header-cell {
   color: #88158c;
   font-size: 14px;
@@ -94,7 +94,6 @@ table.mat-mdc-table {
   text-align: center;
 }
 
-/* Normal cells */
 .mat-mdc-cell {
   padding: 14px;
   font-size: 14px;
@@ -142,7 +141,7 @@ table.mat-mdc-table {
   margin: 25px auto;
   display: flex;
   gap: 20px;
-  align-items: flex-start; /* better */
+  align-items: flex-start; 
 }
 
 .table-box {
