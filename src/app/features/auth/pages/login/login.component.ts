@@ -45,7 +45,6 @@ export class LoginComponent{
 
        this.successMessage = "Logged in successfully ✅";
 
-    // ✅ auto hide after 2 seconds
     setTimeout(() => {
       this.successMessage = "";
       this.router.navigate(['/tasks']);

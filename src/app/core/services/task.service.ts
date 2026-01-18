@@ -1,42 +1,65 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { StorageService } from "./storage.service";
 import { AuthService } from "./auth.service";
 import { Task } from "../models/task.model";
 
 @Injectable({ providedIn: "root" })
 export class TaskService {
-  constructor(private storage: StorageService, private auth: AuthService) {}
+  private tasksSubject= new BehaviorSubject<Task[]>([]);
+  tasks$=this.tasksSubject.asObservable();
 
-  getTasks(): Task[] {
-    const user = this.auth.getCurrentUser();
-    const tasks = this.storage.get<Task>("tasks"); // returns Task[]
-    return tasks.filter((t) => t.userId === user?.id);
+  constructor(private storage: StorageService, private auth: AuthService) {
+    this.refreshTasks();
   }
 
-  addTask(task: Task): void {
-    const tasks = this.storage.get<Task>("tasks");
-    tasks.push(task);
+  private getAllTasks(): Task[]{
+    return this.storage.get<Task[]>("tasks") || [];
+  }
+
+  private saveAllTasks(tasks:Task[]): void {
     this.storage.set("tasks", tasks);
   }
 
+  refreshTasks(): void {
+    const user = this.auth.getCurrentUser();
+    if (!user) {
+      this.tasksSubject.next([]);
+      return;
+    }
+    const tasks = this.getAllTasks().filter((t) => t.userId === user.id);
+    this.tasksSubject.next(tasks);
+  }
+  addTask(task: Task): void {
+    const allTasks = this.getAllTasks();
+    allTasks.push(task);
+    this.saveAllTasks(allTasks);
+    this.refreshTasks(); // update observable
+  }
+
   updateTask(task: Task): void {
-    const tasks = this.storage.get<Task>("tasks");
-    const index = tasks.findIndex((t) => t.id === task.id);
+    const allTasks = this.getAllTasks();
+    const index = allTasks.findIndex((t) => t.id === task.id);
 
     if (index !== -1) {
-      tasks[index] = task;
-      this.storage.set("tasks", tasks);
+      allTasks[index] = task;
+      this.saveAllTasks(allTasks);
+      this.refreshTasks();
     }
   }
 
   deleteTask(id: number): void {
-    const tasks = this.storage.get<Task>("tasks").filter((t) => t.id !== id);
-    this.storage.set("tasks", tasks);
+    const allTasks = this.getAllTasks().filter((t) => t.id !== id);
+    this.saveAllTasks(allTasks);
+    this.refreshTasks();
   }
 
   clearMyTasks(): void {
     const user = this.auth.getCurrentUser();
-    const tasks = this.storage.get<Task>("tasks").filter((t) => t.userId !== user?.id);
-    this.storage.set("tasks", tasks);
+    if (!user) return;
+
+    const allTasks = this.getAllTasks().filter((t) => t.userId !== user.id);
+    this.saveAllTasks(allTasks);
+    this.refreshTasks();
   }
 }

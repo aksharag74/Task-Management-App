@@ -15,6 +15,11 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
+import { TaskService } from "../../../../core/services/task.service";
+import { AuthService } from "../../../../core/services/auth.service";
+import { Task } from "../../../../core/models/task.model";
+import { Observable, map} from "rxjs";
+
 @Component({
   selector: "app-task-list",
   standalone: true,
@@ -26,7 +31,12 @@ import { MatToolbarModule } from "@angular/material/toolbar";
   styleUrl: "./task-list.component.css",
 })
 export class TaskListComponent implements OnInit {
-  constructor(private router: Router) {}
+
+  constructor(private router: Router,
+    private taskService: TaskService,
+    private auth:AuthService
+  ) {}
+
   username: string | null = null;
   showForm = false;
   displayedColumns = [
@@ -37,49 +47,61 @@ export class TaskListComponent implements OnInit {
     "dueDate",
     "actions",
   ];
-  dataSource: any[] = [];
-  newTask = {
+
+  tasks$!: Observable<Task[]>;
+  pendingTasks$!: Observable<Task[]>;
+  completedTasks$!: Observable<Task[]>;
+
+  newTask:Task = {
     id: 0,
     title: "",
     description: "",
     priority: "Low",
     dueDate: new Date(),
     completed: false,
+    userId:0,
   };
+
   ngOnInit(): void {
-    const user = localStorage.getItem("user");
+    this.tasks$=this.taskService.tasks$;
+
+    this.pendingTasks$=this.tasks$.pipe(
+      map(tasks => tasks.filter(t=> !t.completed))
+    );
+    this.completedTasks$=this.tasks$.pipe(
+      map(tasks => tasks.filter(t=>t.completed))
+    );
+    const user = this.auth.getCurrentUser();
     if (user) {
-      this.username = JSON.parse(user).name;
-    }
-    this.loadTasks(); 
+      this.username = user.name;
+      this.taskService.refreshTasks();
+    } 
   }
-  get pendingTasks() {
-    return this.dataSource.filter((task) => !task.completed);
-  }
-  get completedTasks() {
-    return this.dataSource.filter((task) => task.completed);
-  }
-  saveTasks(): void {
-    localStorage.setItem("tasks", JSON.stringify(this.dataSource));
-  }
-  loadTasks(): void {
-    const savedTasks = localStorage.getItem("tasks");
-    this.dataSource = savedTasks ? JSON.parse(savedTasks) : [];
-  }
+
   addTask(): void {
-    this.newTask.id = Date.now();
-    this.dataSource = [...this.dataSource, { ...this.newTask }];
-    this.saveTasks(); 
+    const user = this.auth.getCurrentUser();
+    if(!user){
+      alert("User not logged in!");
+      return;
+    }
+    const taskToAdd: Task={
+      ...this.newTask,
+      id:Date.now(),
+      userId: user.id,
+      completed:false,
+    };
+    this.taskService.addTask(taskToAdd);
     this.resetForm();
   }
-  deleteTask(id: number): void {
-    this.dataSource = this.dataSource.filter((task) => task.id !== id);
-    this.saveTasks(); 
+
+  toggleCompleted(task: Task): void {
+    this.taskService.updateTask({ ...task, completed: !task.completed });
   }
+
   confirmDelete(id: number): void {
   const ok = confirm("Are you sure you want to delete this task?");
   if (ok) {
-    this.deleteTask(id);
+    this.taskService.deleteTask(id);
   }
   }
   cancel(): void {
@@ -88,13 +110,14 @@ export class TaskListComponent implements OnInit {
   logout(): void {
   const ok = confirm("Are you sure you want to logout?"); 
   if (ok) {
-    localStorage.removeItem("user"); 
-    localStorage.removeItem("tasks");
+    this.auth.logout();
     alert("Logout successfully!");
     this.router.navigate(['/login']); 
   }
 }
   private resetForm(): void {
+    const user = this.auth.getCurrentUser();
+
     this.newTask = {
       id: 0,
       title: "",
@@ -102,6 +125,7 @@ export class TaskListComponent implements OnInit {
       priority: "Low",
       dueDate: new Date(),
       completed: false,
+      userId:user?user.id:0,
     };
     this.showForm = false;
   }

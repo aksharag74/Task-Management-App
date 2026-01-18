@@ -6,21 +6,21 @@ import { Users } from "../models/user.model";
 export class AuthService{
     constructor (private storage: StorageService){}
     login(email:string, password:string): boolean{
-        const users=this.storage.get<Users>('users');
+        const users=this.storage.get<Users[]>('users')||[];
         const user=users.find(
-            u=>u.email === email && u.password === password
+            (u)=>u.email === email && u.password === password
         );
         if (user){
-            this.storage.setItem('currentUser',user);
+            this.storage.set('user',user);
             return true;
         }
         return false;
     }
-    logout(){
-        this.storage.remove('currentUser');
+    logout():void{
+        this.storage.remove('user');
     }
     getCurrentUser(): Users | null {
-        return this.storage.getItem<Users>('currentUser');
+        return this.storage.get<Users>('user');
     }
     isLoggedIn(): boolean{
         return !!this.getCurrentUser();
