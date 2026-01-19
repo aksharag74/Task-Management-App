@@ -7,7 +7,7 @@
   <span class="username" *ngIf="username">
     {{ username }}
   </span>
-  <button mat-icon-button color="warn" (click)="logout()" *ngIf="username">
+  <button mat-button color="warn" (click)="logout()" *ngIf="username">
   <mat-icon>logout</mat-icon>
 </button>
 </mat-toolbar>
@@ -86,10 +86,10 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let task">
       <button mat-button color="warn" (click)="confirmDelete(task.id)">
-        Delete
+        <mat-icon>delete</mat-icon>
       </button>
       <button mat-button color="warn" (click)="editTask(task)">
-        Update
+        <mat-icon>update</mat-icon>
       </button>
     </td>
   </ng-container>

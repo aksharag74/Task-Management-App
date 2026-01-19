@@ -42,12 +42,12 @@ export class LoginComponent{
   const ok = this.auth.login(email, password);
 
   if (!ok) {
-    this.errorMessage = "Invalid email or password ❌";
+    this.errorMessage = "Invalid email or password";
     return;
   }
 
   this.errorMessage = "";
-  this.successMessage = "Logged in successfully ✅";
+  this.successMessage = "Logged in successfully";
 
   this.taskService.refreshTasks();
 

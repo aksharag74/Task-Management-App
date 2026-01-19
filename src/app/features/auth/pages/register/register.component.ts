@@ -38,11 +38,11 @@ export class RegisterComponent{
     const ok = this.auth.register(name, email, password);
 
     if (!ok) {
-      this.errorMessage = "Email already exists ❌";
+      this.errorMessage = "Email already exists";
       this.successMessage = "";
       return;
     }
-    this.successMessage = "Registered successfully ✅";
+    this.successMessage = "Registered successfully";
     this.errorMessage = "";
 
     setTimeout(() => {

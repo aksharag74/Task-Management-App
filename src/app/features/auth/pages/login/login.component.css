@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(249, 229, 243);
+  background-color: #adadad;
 }
 
 .logincontainer {
@@ -34,7 +34,7 @@ input {
   padding: 8px;
   margin-top: 5px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #adadad;
 }
 
 small,
@@ -46,7 +46,7 @@ small,
 button {
   width: 100%;
   padding: 10px;
-  background-color: #88158c;
+  background-color: #343333;
   color: white;
   border: none;
   border-radius: 5px;
