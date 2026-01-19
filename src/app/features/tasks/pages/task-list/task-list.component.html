@@ -1,14 +1,14 @@
 <mat-toolbar color="primary" class="navbar"> 
   <span class="project-name">Task Manager</span>
   <span class="spacer"></span>
-  <button mat-raised-button color="accent" (click)="showForm = true">
+  <button mat-raised-button color="accent" (click)="showForm = true" style="color: black;">
     + Add Task
   </button>
   <span class="username" *ngIf="username">
     {{ username }}
   </span>
   <button mat-button color="warn" (click)="logout()" *ngIf="username">
-  <mat-icon>logout</mat-icon>
+  <mat-icon style="color: black;">logout</mat-icon>
 </button>
 </mat-toolbar>
 
@@ -40,10 +40,10 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit" style="color: black;">
       Save
     </button>
-    <button mat-button type="button" (click)="cancel()">
+    <button mat-button type="button"  style="color: black;"(click)="cancel()">
       Cancel
     </button>
   </form>
@@ -86,10 +86,10 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let task">
       <button mat-button color="warn" (click)="confirmDelete(task.id)">
-        <mat-icon>delete</mat-icon>
+        <mat-icon style="color: black;">delete</mat-icon>
       </button>
       <button mat-button color="warn" (click)="editTask(task)">
-        <mat-icon>update</mat-icon>
+        <mat-icon style="color: black;">update</mat-icon>
       </button>
     </td>
   </ng-container>
