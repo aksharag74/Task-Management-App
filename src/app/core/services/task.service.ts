@@ -13,12 +13,17 @@ export class TaskService {
     this.refreshTasks();
   }
 
-  private getAllTasks(): Task[]{
-    return this.storage.get<Task[]>("tasks") || [];
+  private getTaskKey(): string{
+    const user=this.auth.getCurrentUser();
+    return user ? `tasks_${user.id}`:"tasks_guest";
   }
 
-  private saveAllTasks(tasks:Task[]): void {
-    this.storage.set("tasks", tasks);
+  private getMyTasks(): Task[] {
+    return this.storage.get<Task[]>(this.getTaskKey()) || [];
+  }
+
+  private saveMyTasks(tasks: Task[]): void {
+    this.storage.set(this.getTaskKey(), tasks);
   }
 
   refreshTasks(): void {
@@ -27,39 +32,35 @@ export class TaskService {
       this.tasksSubject.next([]);
       return;
     }
-    const tasks = this.getAllTasks().filter((t) => t.userId === user.id);
+    const tasks = this.getMyTasks();
     this.tasksSubject.next(tasks);
   }
   addTask(task: Task): void {
-    const allTasks = this.getAllTasks();
-    allTasks.push(task);
-    this.saveAllTasks(allTasks);
-    this.refreshTasks(); // update observable
+    const tasks = this.getMyTasks();
+    tasks.push(task);
+    this.saveMyTasks(tasks);
+    this.refreshTasks();
   }
 
   updateTask(task: Task): void {
-    const allTasks = this.getAllTasks();
+    const allTasks = this.getMyTasks();
     const index = allTasks.findIndex((t) => t.id === task.id);
 
     if (index !== -1) {
       allTasks[index] = task;
-      this.saveAllTasks(allTasks);
+      this.saveMyTasks(allTasks);
       this.refreshTasks();
     }
   }
 
   deleteTask(id: number): void {
-    const allTasks = this.getAllTasks().filter((t) => t.id !== id);
-    this.saveAllTasks(allTasks);
+    const allTasks = this.getMyTasks().filter((t) => t.id !== id);
+    this.saveMyTasks(allTasks);
     this.refreshTasks();
   }
-
-  clearMyTasks(): void {
-    const user = this.auth.getCurrentUser();
-    if (!user) return;
-
-    const allTasks = this.getAllTasks().filter((t) => t.userId !== user.id);
-    this.saveAllTasks(allTasks);
+  
+    clearMyTasks(): void {
+    this.saveMyTasks([]);
     this.refreshTasks();
   }
 }

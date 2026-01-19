@@ -36,6 +36,8 @@ export class TaskListComponent implements OnInit {
     private taskService: TaskService,
     private auth:AuthService
   ) {}
+  isEditMode = false;
+  editTaskId: number | null = null;
 
   username: string | null = null;
   showForm = false;
@@ -84,6 +86,17 @@ export class TaskListComponent implements OnInit {
       alert("User not logged in!");
       return;
     }
+    if(this.isEditMode && this.editTaskId !== null){
+      const updatedTask:Task={
+        ...this.newTask,
+        id:this.editTaskId,
+        userId:user.id,
+      };
+    this.taskService.updateTask(updatedTask);
+    this.resetForm();
+    return;
+    }
+
     const taskToAdd: Task={
       ...this.newTask,
       id:Date.now(),
@@ -96,6 +109,13 @@ export class TaskListComponent implements OnInit {
 
   toggleCompleted(task: Task): void {
     this.taskService.updateTask({ ...task, completed: !task.completed });
+  }
+  editTask(task: Task): void {
+  this.showForm = true;
+  this.isEditMode = true;
+  this.editTaskId = task.id;
+
+  this.newTask = { ...task }; // fill form with existing task data
   }
 
   confirmDelete(id: number): void {
@@ -128,5 +148,7 @@ export class TaskListComponent implements OnInit {
       userId:user?user.id:0,
     };
     this.showForm = false;
+    this.isEditMode= false;
+    this.editTaskId = null;
   }
 }
