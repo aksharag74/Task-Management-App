@@ -24,52 +24,13 @@
     </div>
     <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
     <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <p style="text-align:center; margin-top: 12px;">
+      Don’t have an account?
+      <a routerLink="/register">Register</a>
+    </p>
     </form>
     <p *ngIf="successMessage" style="color: green; margin-top: 10px;">
   {{ successMessage }}
 </p>
 
 </div>
-
-<!-- <mat-card class="login-card">
-  <mat-card-title>Login</mat-card-title>
-
-  <mat-card-content>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username">
-        <mat-error *ngIf="loginForm.get('username')?.invalid">
-          Username is required
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email">
-        <mat-error *ngIf="loginForm.get('email')?.invalid">
-          Valid email required
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="loginForm.get('password')?.invalid">
-          Minimum 6 characters
-        </mat-error>
-      </mat-form-field>
-
-      <button
-        mat-raised-button
-        color="primary"
-        class="full-width"
-        type="submit"
-        [disabled]="loginForm.invalid">
-        Login
-      </button>
-
-    </form>
-  </mat-card-content>
-</mat-card> -->
