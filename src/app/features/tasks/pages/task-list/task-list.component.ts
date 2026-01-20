@@ -124,6 +124,12 @@ export class TaskListComponent implements OnInit {
     this.taskService.deleteTask(id);
   }
   }
+  clearMyTasks(): void {
+    const ok = confirm("Are you sure you want to delete all tasks?");
+  if (ok) {
+    this.taskService.clearMyTasks();
+  }
+  }
   cancel(): void {
     this.resetForm();
   }

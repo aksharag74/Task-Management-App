@@ -1,8 +1,11 @@
 <mat-toolbar color="primary" class="navbar"> 
   <span class="project-name">Task Manager</span>
   <span class="spacer"></span>
-  <button mat-raised-button color="accent" (click)="showForm = true" style="color: black;">
+  <button mat-raised-button color="accent" (click)="showForm = true" style="color: black;margin-right: 10px;">
     + Add Task
+  </button>
+  <button mat-raised-button color="accent" (click)="clearMyTasks()" style="color: black;">
+    Clear Task
   </button>
   <span class="username" *ngIf="username">
     {{ username }}
