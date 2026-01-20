@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #898989;
+  background-color: #F8FAFC;
 }
 
 .logincontainer {
@@ -34,7 +34,7 @@ input {
   padding: 8px;
   margin-top: 5px;
   border-radius: 4px;
-  border: 1px solid #adadad;
+  border: 1px solid #E2E8F0;
 }
 
 small,
@@ -54,7 +54,7 @@ button {
 }
 
 button:disabled {
-  background-color: #aaa;
+  background-color: #a3a3a3;
 }
 
 
