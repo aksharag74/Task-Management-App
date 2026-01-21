@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "Gestionnaire de tâches",
+    "PENDING_TITLE": "Tâches en attente",
+    "COMPLETED_TITLE": "Tâches terminées",
+    "LANGUAGE": "Sélectionner la langue"
+  },
+  "BUTTON": {
+    "ADD_TASK": "Ajouter une tâche",
+    "CLEAR_ALL": "Tout effacer",
+    "SAVE": "Enregistrer",
+    "CANCEL": "Annuler"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "Ajouter une nouvelle tâche",
+    "DONE": "Fait",
+    "TITLE": "Titre",
+    "DESCRIPTION": "Description",
+    "PRIORITY": "Priorité",
+    "LOW": "Faible",
+    "MEDIUM": "Moyenne",
+    "HIGH": "Élevée",
+    "DUE_DATE": "Date limite",
+    "ACTIONS": "Actions"
+  },
+  "TABLE": {
+    "NO_TASKS": "Aucune tâche planifiée pour le moment...",
+    "NO_PENDING_TASKS": "Aucune tâche en attente...",
+    "NO_COMPLETED_TASKS": "Aucune tâche terminée..."
+  }
+}

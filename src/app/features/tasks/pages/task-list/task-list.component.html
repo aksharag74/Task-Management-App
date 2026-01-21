@@ -1,11 +1,23 @@
 <mat-toolbar color="primary" class="navbar"> 
-  <span class="project-name">Task Manager</span>
+  <span class="project-name">{{'APP.TITLE' | translate}}</span>
   <span class="spacer"></span>
+  <button mat-raised-button color="accent" [matMenuTriggerFor]="langMenu" style="color: black;margin-right: 10px;">
+    {{'APP.LANGUAGE'|translate}}
+  </button>
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item (click)="changeLang('en')">English</button>
+    <button mat-menu-item (click)="changeLang('ja')">Japnese</button>
+    <button mat-menu-item (click)="changeLang('mr')">Marathi</button>
+    <button mat-menu-item (click)="changeLang('es')">Spanish</button>
+    <button mat-menu-item (click)="changeLang('it')">Italian</button>
+    <button mat-menu-item (click)="changeLang('de')">German</button>
+    <button mat-menu-item (click)="changeLang('fr')">French</button>
+  </mat-menu>
   <button mat-raised-button color="accent" (click)="showForm = true" style="color: black;margin-right: 10px;">
-    + Add Task
+    + {{ 'BUTTON.ADD_TASK' | translate }}
   </button>
   <button mat-raised-button color="accent" (click)="clearMyTasks()" style="color: black;">
-    Clear Task
+    {{ 'BUTTON.CLEAR_ALL' | translate }}
   </button>
   <span class="username" *ngIf="username">
     {{ username }}
@@ -16,38 +28,38 @@
 </mat-toolbar>
 
 <div *ngIf="showForm" class="task-form">
-  <h3>Add New Task</h3>
+  <h3>{{ 'FORM.ADD_NEW_TASK' | translate }}</h3>
   <form (ngSubmit)="addTask()">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Title</mat-label>
+      <mat-label>{{ 'FORM.TITLE' | translate }}</mat-label>
       <input matInput [(ngModel)]="newTask.title" name="title" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'FORM.DESCRIPTION' | translate }}</mat-label>
       <textarea matInput [(ngModel)]="newTask.description" name="description"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Priority</mat-label>
+      <mat-label>{{ 'FORM.PRIORITY' | translate }}</mat-label>
       <mat-select [(ngModel)]="newTask.priority" name="priority">
-        <mat-option value="Low" >Low</mat-option>
-        <mat-option value="Medium" >Medium</mat-option>
-        <mat-option value="High" >High</mat-option>
+        <mat-option value="Low" >{{ 'FORM.LOW' | translate }}</mat-option>
+        <mat-option value="Medium" >{{ 'FORM.MEDIUM' | translate }}</mat-option>
+        <mat-option value="High" >{{ 'FORM.HIGH' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Due Date</mat-label>
+      <mat-label>{{ 'FORM.DUE_DATE' | translate }}</mat-label>
       <input matInput [matDatepicker]="picker" [(ngModel)]="newTask.dueDate" name="dueDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" style="color: black;">
-      Save
+      {{ 'BUTTON.SAVE' | translate }}
     </button>
     <button mat-button type="button"  style="color: black;"(click)="cancel()">
-      Cancel
+      {{ 'BUTTON.CANCEL' | translate }}
     </button>
   </form>
 </div>
@@ -55,24 +67,24 @@
 <table mat-table [dataSource]="(pendingTasks$ | async) ?? []" class="mat-elevation-z8">
 
   <ng-container matColumnDef="completed">
-    <th mat-header-cell *matHeaderCellDef> Done </th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.DONE' | translate }}</th>
     <td mat-cell *matCellDef="let task">
       <mat-checkbox [checked]="task.completed" (change)="toggleCompleted(task)"></mat-checkbox>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.TITLE' | translate }}</th>
     <td mat-cell *matCellDef="let task">{{ task.title }}</td>
   </ng-container>
 
   <ng-container matColumnDef="description" style="max-width: 20%;">
-    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.DESCRIPTION' | translate }}</th>
     <td mat-cell *matCellDef="let task">{{ task.description }}</td>
   </ng-container>
 
   <ng-container matColumnDef="priority">
-    <th mat-header-cell *matHeaderCellDef>Priority</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.PRIORITY' | translate }}</th>
     <td mat-cell *matCellDef="let task">
       <span class="priority-badge" [ngClass]="task.priority">
       {{ task.priority}}
@@ -81,12 +93,12 @@
   </ng-container>
 
   <ng-container matColumnDef="dueDate">
-    <th mat-header-cell *matHeaderCellDef>Due Date</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.DUE_DATE' | translate }}</th>
     <td mat-cell *matCellDef="let task">{{ task.dueDate | date }}</td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'FORM.ACTIONS' | translate }}</th>
     <td mat-cell *matCellDef="let task">
       <button mat-button color="warn" (click)="confirmDelete(task.id)">
         <mat-icon style="color: black;">delete</mat-icon>
@@ -103,24 +115,24 @@
 
   <tr class="mat-row" *matNoDataRow>
   <td class="mat-cell no-tasks-cell" [attr.colspan]="displayedColumns.length">
-    No tasks scheduled yet...
+    {{ 'TABLE.NO_TASKS' | translate }}
   </td>
 </tr>
 </table>
 <div class="two-tables">
 
   <div class="table-box">
-    <h3 class="table-title">Pending Tasks</h3>
+    <h3 class="table-title">{{ 'APP.PENDING_TITLE' | translate }}</h3>
 
     <table mat-table [dataSource]="(pendingTasks$ | async) ?? []" class="mat-elevation-z8 small-table">
 
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Task Name</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'FORM.TITLE' | translate }}</th>
         <td mat-cell *matCellDef="let task">{{ task.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="priority">
-        <th mat-header-cell *matHeaderCellDef>Priority</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'FORM.PRIORITY' | translate }}</th>
         <td mat-cell *matCellDef="let task">
           <span class="priority-badge" [ngClass]="task.priority">
             {{ task.priority }}
@@ -132,24 +144,24 @@
       <tr mat-row *matRowDef="let row; columns: ['title','priority'];"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-tasks-cell" colspan="2">No pending tasks...</td>
+        <td class="mat-cell no-tasks-cell" colspan="2">{{ 'TABLE.NO_PENDING_TASKS' | translate }}</td>
       </tr>
 
     </table>
   </div>
 
   <div class="table-box">
-    <h3 class="table-title">Completed Tasks</h3>
+    <h3 class="table-title">{{ 'APP.COMPLETED_TITLE' | translate }}</h3>
 
     <table mat-table [dataSource]="(completedTasks$ | async) ?? []" class="mat-elevation-z8 small-table">
 
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Task Name</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'FORM.TITLE' | translate }}</th>
         <td mat-cell *matCellDef="let task">{{ task.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="priority">
-        <th mat-header-cell *matHeaderCellDef>Priority</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'FORM.PRIORITY' | translate }}</th>
         <td mat-cell *matCellDef="let task">
           <span class="priority-badge" [ngClass]="task.priority">
             {{ task.priority }}
@@ -161,7 +173,7 @@
       <tr mat-row *matRowDef="let row; columns: ['title','priority'];"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-tasks-cell" colspan="2">No completed tasks yet...</td>
+        <td class="mat-cell no-tasks-cell" colspan="2">{{ 'TABLE.NO_COMPLETED_TASKS' | translate }}</td>
       </tr>
 
     </table>

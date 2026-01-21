@@ -4,6 +4,7 @@
     <div class="form-group">
       <label>Username</label>
       <input type="text" formControlName="username" placeholder="Enter Username" />
+      
       <small *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
         Username is required (min 3 characters)
       </small>

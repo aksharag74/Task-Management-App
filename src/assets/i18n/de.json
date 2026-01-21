@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "Aufgabenmanager",
+    "PENDING_TITLE": "Ausstehende Aufgaben",
+    "COMPLETED_TITLE": "Abgeschlossene Aufgaben",
+    "LANGUAGE": "Sprache auswählen"
+  },
+  "BUTTON": {
+    "ADD_TASK": "Aufgabe hinzufügen",
+    "CLEAR_ALL": "Alles löschen",
+    "SAVE": "Speichern",
+    "CANCEL": "Abbrechen"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "Neue Aufgabe hinzufügen",
+    "DONE": "Erledigt",
+    "TITLE": "Titel",
+    "DESCRIPTION": "Beschreibung",
+    "PRIORITY": "Priorität",
+    "LOW": "Niedrig",
+    "MEDIUM": "Mittel",
+    "HIGH": "Hoch",
+    "DUE_DATE": "Fälligkeitsdatum",
+    "ACTIONS": "Aktionen"
+  },
+  "TABLE": {
+    "NO_TASKS": "Noch keine Aufgaben geplant...",
+    "NO_PENDING_TASKS": "Keine ausstehenden Aufgaben...",
+    "NO_COMPLETED_TASKS": "Keine abgeschlossenen Aufgaben..."
+  }
+}

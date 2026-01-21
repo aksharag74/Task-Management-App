@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "Task Manager",
+    "PENDING_TITLE": "Pending Tasks",
+    "COMPLETED_TITLE": "Completed Tasks",
+    "LANGUAGE": "Select Language"
+  },
+  "BUTTON": {
+    "ADD_TASK": "Add Task",
+    "CLEAR_ALL": "Clear All",
+    "SAVE": "Save",
+    "CANCEL": "Cancel"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "Add New Task",
+    "DONE":"Done",
+    "TITLE": "Title",
+    "DESCRIPTION": "Description",
+    "PRIORITY": "Priority",
+    "LOW": "Low",
+    "MEDIUM": "Medium",
+    "HIGH": "High",
+    "DUE_DATE": "Due Date",
+    "ACTIONS": "Actions"
+  },
+  "TABLE": {
+    "NO_TASKS": "No tasks Scheduled yet...",
+    "NO_PENDING_TASKS":"No Pending tasks...",
+    "NO_COMPLETED_TASKS":"No Completed tasks..."
+  }
+}

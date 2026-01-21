@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "Administrador de Tareas",
+    "PENDING_TITLE": "Tareas Pendientes",
+    "COMPLETED_TITLE": "Tareas Completadas",
+    "LANGUAGE": "Seleccionar idioma"
+  },
+  "BUTTON": {
+    "ADD_TASK": "Agregar tarea",
+    "CLEAR_ALL": "Borrar todo",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "Agregar nueva tarea",
+    "DONE": "Hecho",
+    "TITLE": "Título",
+    "DESCRIPTION": "Descripción",
+    "PRIORITY": "Prioridad",
+    "LOW": "Baja",
+    "MEDIUM": "Media",
+    "HIGH": "Alta",
+    "DUE_DATE": "Fecha de vencimiento",
+    "ACTIONS": "Acciones"
+  },
+  "TABLE": {
+    "NO_TASKS": "Aún no hay tareas programadas...",
+    "NO_PENDING_TASKS": "No hay tareas pendientes...",
+    "NO_COMPLETED_TASKS": "No hay tareas completadas..."
+  }
+}

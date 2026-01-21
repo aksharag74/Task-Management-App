@@ -14,18 +14,22 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatMenuModule } from "@angular/material/menu";
+import {MatPaginator} from "@angular/material/paginator"
 
 import { TaskService } from "../../../../core/services/task.service";
 import { AuthService } from "../../../../core/services/auth.service";
 import { Task } from "../../../../core/models/task.model";
-import { Observable, map} from "rxjs";
+import { Observable, map } from "rxjs";
+import {TranslateModule,TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-task-list",
   standalone: true,
   imports: [
-    CommonModule,FormsModule,MatTableModule,MatCheckboxModule,MatButtonModule,MatChipsModule,MatFormFieldModule,
-    MatInputModule,MatSelectModule,MatDatepickerModule,MatNativeDateModule,MatToolbarModule,MatIconModule,
+    CommonModule, FormsModule, MatTableModule, MatCheckboxModule, MatButtonModule, MatChipsModule, MatFormFieldModule,
+    MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatToolbarModule, MatIconModule,
+    MatMenuModule,TranslateModule,MatPaginator
   ],
   templateUrl: "./task-list.component.html",
   styleUrl: "./task-list.component.css",
@@ -34,8 +38,12 @@ export class TaskListComponent implements OnInit {
 
   constructor(private router: Router,
     private taskService: TaskService,
-    private auth:AuthService
-  ) {}
+    private auth: AuthService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+   }
   isEditMode = false;
   editTaskId: number | null = null;
 
@@ -54,54 +62,54 @@ export class TaskListComponent implements OnInit {
   pendingTasks$!: Observable<Task[]>;
   completedTasks$!: Observable<Task[]>;
 
-  newTask:Task = {
+  newTask: Task = {
     id: 0,
     title: "",
     description: "",
     priority: "Low",
     dueDate: new Date(),
     completed: false,
-    userId:0,
+    userId: 0,
   };
 
   ngOnInit(): void {
-    this.tasks$=this.taskService.tasks$;
+    this.tasks$ = this.taskService.tasks$;
 
-    this.pendingTasks$=this.tasks$.pipe(
-      map(tasks => tasks.filter(t=> !t.completed))
+    this.pendingTasks$ = this.tasks$.pipe(
+      map(tasks => tasks.filter(t => !t.completed))
     );
-    this.completedTasks$=this.tasks$.pipe(
-      map(tasks => tasks.filter(t=>t.completed))
+    this.completedTasks$ = this.tasks$.pipe(
+      map(tasks => tasks.filter(t => t.completed))
     );
     const user = this.auth.getCurrentUser();
     if (user) {
       this.username = user.name;
       this.taskService.refreshTasks();
-    } 
+    }
   }
 
   addTask(): void {
     const user = this.auth.getCurrentUser();
-    if(!user){
+    if (!user) {
       alert("User not logged in!");
       return;
     }
-    if(this.isEditMode && this.editTaskId !== null){
-      const updatedTask:Task={
+    if (this.isEditMode && this.editTaskId !== null) {
+      const updatedTask: Task = {
         ...this.newTask,
-        id:this.editTaskId,
-        userId:user.id,
+        id: this.editTaskId,
+        userId: user.id,
       };
-    this.taskService.updateTask(updatedTask);
-    this.resetForm();
-    return;
+      this.taskService.updateTask(updatedTask);
+      this.resetForm();
+      return;
     }
 
-    const taskToAdd: Task={
+    const taskToAdd: Task = {
       ...this.newTask,
-      id:Date.now(),
+      id: Date.now(),
       userId: user.id,
-      completed:false,
+      completed: false,
     };
     this.taskService.addTask(taskToAdd);
     this.resetForm();
@@ -111,36 +119,39 @@ export class TaskListComponent implements OnInit {
     this.taskService.updateTask({ ...task, completed: !task.completed });
   }
   editTask(task: Task): void {
-  this.showForm = true;
-  this.isEditMode = true;
-  this.editTaskId = task.id;
+    this.showForm = true;
+    this.isEditMode = true;
+    this.editTaskId = task.id;
 
-  this.newTask = { ...task }; // fill form with existing task data
+    this.newTask = { ...task }; // fill form with existing task data
   }
 
   confirmDelete(id: number): void {
-  const ok = confirm("Are you sure you want to delete this task?");
-  if (ok) {
-    this.taskService.deleteTask(id);
-  }
+    const ok = confirm("Are you sure you want to delete this task?");
+    if (ok) {
+      this.taskService.deleteTask(id);
+    }
   }
   clearMyTasks(): void {
     const ok = confirm("Are you sure you want to delete all tasks?");
-  if (ok) {
-    this.taskService.clearMyTasks();
+    if (ok) {
+      this.taskService.clearMyTasks();
+    }
   }
+  changeLang(lang: string) {
+    this.translate.use(lang);
   }
   cancel(): void {
     this.resetForm();
   }
   logout(): void {
-  const ok = confirm("Are you sure you want to logout?"); 
-  if (ok) {
-    this.auth.logout();
-    alert("Logout successfully!");
-    this.router.navigate(['/login']); 
+    const ok = confirm("Are you sure you want to logout?");
+    if (ok) {
+      this.auth.logout();
+      alert("Logout successfully!");
+      this.router.navigate(['/login']);
+    }
   }
-}
   private resetForm(): void {
     const user = this.auth.getCurrentUser();
 
@@ -151,10 +162,10 @@ export class TaskListComponent implements OnInit {
       priority: "Low",
       dueDate: new Date(),
       completed: false,
-      userId:user?user.id:0,
+      userId: user ? user.id : 0,
     };
     this.showForm = false;
-    this.isEditMode= false;
+    this.isEditMode = false;
     this.editTaskId = null;
   }
 }

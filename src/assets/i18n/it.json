@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "Gestore Attività",
+    "PENDING_TITLE": "Attività in sospeso",
+    "COMPLETED_TITLE": "Attività completate",
+    "LANGUAGE": "Seleziona lingua"
+  },
+  "BUTTON": {
+    "ADD_TASK": "Aggiungi attività",
+    "CLEAR_ALL": "Cancella tutto",
+    "SAVE": "Salva",
+    "CANCEL": "Annulla"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "Aggiungi nuova attività",
+    "DONE": "Fatto",
+    "TITLE": "Titolo",
+    "DESCRIPTION": "Descrizione",
+    "PRIORITY": "Priorità",
+    "LOW": "Bassa",
+    "MEDIUM": "Media",
+    "HIGH": "Alta",
+    "DUE_DATE": "Data di scadenza",
+    "ACTIONS": "Azioni"
+  },
+  "TABLE": {
+    "NO_TASKS": "Non ci sono ancora attività programmate...",
+    "NO_PENDING_TASKS": "Nessuna attività in sospeso...",
+    "NO_COMPLETED_TASKS": "Nessuna attività completata..."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "APP": {
+    "TITLE": "タスク管理",
+    "PENDING_TITLE": "未完了のタスク",
+    "COMPLETED_TITLE": "完了したタスク",
+    "LANGUAGE": "言語を選択"
+  },
+  "BUTTON": {
+    "ADD_TASK": "タスクを追加",
+    "CLEAR_ALL": "すべて削除",
+    "SAVE": "保存",
+    "CANCEL": "キャンセル"
+  },
+  "FORM": {
+    "ADD_NEW_TASK": "新しいタスクを追加",
+    "DONE": "完了",
+    "TITLE": "タイトル",
+    "DESCRIPTION": "説明",
+    "PRIORITY": "優先度",
+    "LOW": "低",
+    "MEDIUM": "中",
+    "HIGH": "高",
+    "DUE_DATE": "期限",
+    "ACTIONS": "操作"
+  },
+  "TABLE": {
+    "NO_TASKS": "まだタスクが予定されていません...",
+    "NO_PENDING_TASKS": "未完了のタスクはありません...",
+    "NO_COMPLETED_TASKS": "完了したタスクはありません..."
+  }
+}
