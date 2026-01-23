@@ -35,7 +35,7 @@
 </div>
 <h2 class="page-title">{{ 'APP.COMPLETED_TITLE' | translate }}</h2>
 
-<table mat-table [dataSource]="(completedTasks$ | async) ?? []" class="mat-elevation-z8">
+<table mat-table [dataSource]="completedDataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="completed">
     <th mat-header-cell *matHeaderCellDef>{{ 'FORM.DONE' | translate }}</th>
@@ -74,3 +74,8 @@
     </td>
   </tr>
 </table>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  [pageSize]="5"
+  showFirstLastButtons>
+</mat-paginator>

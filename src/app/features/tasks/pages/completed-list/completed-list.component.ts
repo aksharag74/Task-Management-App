@@ -15,6 +15,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { Router } from "@angular/router";
 import { RouterModule } from '@angular/router';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-completed-list',
@@ -24,15 +28,15 @@ import { RouterModule } from '@angular/router';
     MatTableModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule,TranslateModule, MatToolbarModule, MatMenuModule
+    MatIconModule,TranslateModule, MatToolbarModule, MatMenuModule, MatPaginatorModule
   ],
   templateUrl: './completed-list.component.html',
   styleUrl: './completed-list.component.css',
 })
-export class CompletedTaskComponent implements OnInit {
+export class CompletedTaskComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['title', 'description', 'priority', 'dueDate'];
-
+  completedDataSource = new MatTableDataSource<Task>([]);
   completedTasks$!: Observable<Task[]>;
 
   constructor(
@@ -56,6 +60,14 @@ export class CompletedTaskComponent implements OnInit {
     this.completedTasks$ = this.taskService.tasks$.pipe(
       map(tasks => tasks.filter(t => t.completed))
     );
+    this.completedTasks$.subscribe(tasks => {
+  this.completedDataSource.data = tasks;
+});
+  }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit(): void {
+    this.completedDataSource.paginator = this.paginator;
   }
   toggleCompleted(task: Task): void {
     this.taskService.updateTask({ ...task, completed: !task.completed });

@@ -188,6 +188,13 @@ button.mat-mdc-menu-item {
   text-decoration: none;
   color: var(--navbar-text);
 }
+mat-paginator {
+  display: flex;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0px;
+}
 @media (max-width: 600px) {
   .navbar {
     flex-wrap: wrap;
