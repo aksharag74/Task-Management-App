@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -15,13 +15,14 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
-import {MatPaginator} from "@angular/material/paginator"
 
 import { TaskService } from "../../../../core/services/task.service";
 import { AuthService } from "../../../../core/services/auth.service";
 import { Task } from "../../../../core/models/task.model";
 import { Observable, map } from "rxjs";
-import {TranslateModule,TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ThemeService } from "../../../../core/services/theme.service";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: "app-task-list",
@@ -29,7 +30,7 @@ import {TranslateModule,TranslateService } from '@ngx-translate/core';
   imports: [
     CommonModule, FormsModule, MatTableModule, MatCheckboxModule, MatButtonModule, MatChipsModule, MatFormFieldModule,
     MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatToolbarModule, MatIconModule,
-    MatMenuModule,TranslateModule,MatPaginator
+    MatMenuModule, TranslateModule, RouterModule
   ],
   templateUrl: "./task-list.component.html",
   styleUrl: "./task-list.component.css",
@@ -39,11 +40,12 @@ export class TaskListComponent implements OnInit {
   constructor(private router: Router,
     private taskService: TaskService,
     private auth: AuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public themeService: ThemeService
   ) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
-   }
+  }
   isEditMode = false;
   editTaskId: number | null = null;
 
@@ -59,8 +61,6 @@ export class TaskListComponent implements OnInit {
   ];
 
   tasks$!: Observable<Task[]>;
-  pendingTasks$!: Observable<Task[]>;
-  completedTasks$!: Observable<Task[]>;
 
   newTask: Task = {
     id: 0,
@@ -73,14 +73,10 @@ export class TaskListComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.tasks$ = this.taskService.tasks$;
-
-    this.pendingTasks$ = this.tasks$.pipe(
+    this.tasks$ = this.taskService.tasks$.pipe(
       map(tasks => tasks.filter(t => !t.completed))
     );
-    this.completedTasks$ = this.tasks$.pipe(
-      map(tasks => tasks.filter(t => t.completed))
-    );
+
     const user = this.auth.getCurrentUser();
     if (user) {
       this.username = user.name;
