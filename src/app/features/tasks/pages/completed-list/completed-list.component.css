@@ -195,6 +195,12 @@ mat-paginator {
   color: var(--text);
   padding: 0px;
 }
+.desc-cell{
+  max-width: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @media (max-width: 600px) {
   .navbar {
     flex-wrap: wrap;
